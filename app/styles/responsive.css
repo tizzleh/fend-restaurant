@@ -1,0 +1,91 @@
+@media only screen and (min-width: 300px) and (max-width: 600px) {
+  .container {
+    display: flex;
+    flex-flow: wrap;
+    height: 300px;
+  }
+  .parent {
+    display: flex;
+    height: 300px;
+    flex-flow: wrap;
+    justify-content: space-around;
+  }
+  #restaurants-list li {
+    width: 360px;
+    min-width: 220px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 2em;
+  }
+  /* .child {
+    min-width: 100px;
+    width: 300px;
+    height: 100px;
+    margin: auto;
+  } */
+}
+
+@media only screen and (min-width: 601px) and (max-width: 1200px) {
+  .container {
+    display: flex;
+    flex-flow: wrap row;
+    height: 300px;
+  }
+  .parent {
+    display: flex;
+    height: 300px;
+    flex-flow: wrap;
+    justify-content: space-around;
+  }
+  #restaurants-list li {
+    width: 330px;
+    min-width: 220px;
+    height: 100px;
+    margin: auto;
+    margin-bottom: 2em;
+  }
+  #breadcrumb {
+    padding: 16px 16px 16px;
+    list-style: none;
+    background-color: #eee;
+    font-size: 18px;
+    line-height: 1.25em;
+    margin: 0;
+    /* width: calc(50% - 80px); */
+  }
+  /* Display list items side by side */
+  /* .child {
+    min-width: 100px;
+    width: 300px;
+    height: 100px;
+    margin: auto;
+  } */
+}
+
+@media only screen and (min-width: 1201) and (max-width: 1600px) {
+  .container {
+    display: flex;
+    flex-flow: wrap row;
+    height: 300px;
+  }
+  .parent {
+    display: flex;
+    height: 300px;
+    flex-flow: wrap;
+    justify-content: space-around;
+  }
+  #restaurants-list li {
+    width: 80%;
+    min-width: 220px;
+    height: 100px;
+    /* max-width: 330px; */
+    margin: auto;
+    margin-bottom: 2em;
+  }
+  /* .child {
+    min-width: 100px;
+    width: 300px;
+    height: 100px;
+    margin: auto;
+  } */
+}
