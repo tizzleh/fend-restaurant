@@ -183,6 +183,15 @@ nav h1 a {
   /* width: 270px; */
   /* max-width: 300px; */
   /* margin: 1.9em; */
+  background-color: #fff;
+  border: 2px solid #ccc;
+  font-family: Arial, sans-serif;
+  margin: auto;
+  margin-bottom: 1.5em;
+  min-height: 380px;
+  padding: 10px 10px 5px;
+  text-align: left;
+  max-width: 16em;
 }
 
 #restaurants-list .restaurant-img {

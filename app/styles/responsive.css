@@ -36,6 +36,15 @@
     max-width: 27em;
     padding-bottom: 10em;
     margin-bottom: 1em;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    font-family: Arial, sans-serif;
+    margin: auto;
+    margin-bottom: 1.5em;
+    min-height: 380px;
+    padding: 12px 10px 45px;
+    text-align: left;
+    max-width: 16em;
     justify-content: space-around;
   }
   #breadcrumb {
@@ -50,10 +59,14 @@
 
 @media only screen and (min-width: 1201) and (max-width: 2400px) {
   #restaurants-list li {
-    width: 80%;
-    min-width: 220px;
-    height: 100px;
+    background-color: #fff;
+    border: 2px solid #ccc;
+    font-family: Arial, sans-serif;
     margin: auto;
-    justify-content: space-around;
+    margin-bottom: 1.5em;
+    min-height: 380px;
+    padding: 10px 10px 5px;
+    text-align: left;
+    max-width: 16em;
   }
 }
