@@ -1,9 +1,3 @@
-let restaurants;
-let neighborhoods;
-let cuisines;
-let newMap;
-let markers = [];
-
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
@@ -136,6 +130,7 @@ fillRestaurantsHTML = (restaurants = self.restaurants) => {
 /**
  * Create restaurant HTML.
  */
+
 createRestaurantHTML = (restaurant) => {
   const li = document.createElement('li');
 
@@ -169,7 +164,7 @@ createRestaurantHTML = (restaurant) => {
  */
 
 addMarkersToMap = (restaurants = self.restaurants) => {
-  restaurants.forEach(restaurant => {
+  restaurants.forEach((restaurant) => {
     // Add marker to the map
     const marker = DBHelper.mapMarkerForRestaurant(restaurant, self.map);
     this.google.maps.event.addListener(marker, 'click', () => {
