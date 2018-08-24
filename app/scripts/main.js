@@ -71,6 +71,5 @@
         console.error('Error during service worker registration:', e);
       });
   }
-  console.log('Hi from main.js');
-  // Your custom JavaScript goes here
+  console.log('hi from main.js');
 })();

@@ -1,14 +1,21 @@
+/* eslint-disable no-unused-vars*/
+let restaurants;
+let neighborhoods;
+let cuisines;
+let map;
+let markers = [];
+/* eslint-enable no-unused-vars*/
+
 /**
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  initMap(); // added
   fetchNeighborhoods();
   fetchCuisines();
 });
 
 /**
- * Fetch all neighborhoods and set their HTML.
+ *  Fetch all neighborhoods and set their HTML.
  */
 fetchNeighborhoods = () => {
   DBHelper.fetchNeighborhoods((error, neighborhoods) => {
@@ -73,7 +80,7 @@ window.initMap = () => {
     center: loc,
     scrollwheel: false,
   });
-  updateRestaurants();
+  this.updateRestaurants();
 };
 
 /**
@@ -93,26 +100,47 @@ updateRestaurants = () => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      resetRestaurants(restaurants);
-      fillRestaurantsHTML();
+      this.resetRestaurants(restaurants);
+      console.log(restaurants);
+      this.fillRestaurantsHTML();
     }
   });
 };
+// Sets the map on all markers in the array.
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
 
+// Removes the markers from the map, but keeps them in the array.
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+// Shows any markers currently in the array.
+function showMarkers() {
+  setMapOnAll(map);
+}
+
+// Deletes all markers in the array by removing references to them.
+function deleteMarkers() {
+  clearMarkers();
+  self.markers = [];
+}
 /**
  * Clear current restaurants, their HTML and remove their map markers.
  */
+
 resetRestaurants = (restaurants) => {
   // Remove all restaurants
   self.restaurants = [];
   const ul = document.getElementById('restaurants-list');
   ul.innerHTML = '';
-
-  // Remove all map markers
-  if (self.markers) {
-    self.markers.forEach((marker) => marker.remove());
-  }
   self.markers = [];
+  self.markers.forEach(m => m.setMap(null));
+  deleteMarkers();
+  showMarkers();
   self.restaurants = restaurants;
 };
 
@@ -170,6 +198,7 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     this.google.maps.event.addListener(marker, 'click', () => {
       window.location.href = marker.url;
     });
-    this.markers.push(marker);
+    markers.push(marker);
+    console.log(marker);
   });
 };

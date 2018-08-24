@@ -1,29 +1,10 @@
 @media only screen and (min-width: 300px) and (max-width: 600px) {
-  .container {
-    display: flex;
-    flex-flow: wrap;
-    height: 300px;
-  }
-  .parent {
-    display: flex;
-    height: 300px;
-    flex-flow: wrap;
-    justify-content: space-around;
-  }
   #restaurants-list li {
-    height: 100px;
-    max-width: 12em;
     margin: auto;
     margin-bottom: 1.2em;
     padding-bottom: 1.8em;
     justify-content: space-around;
   }
-  /* .child {
-    min-width: 100px;
-    width: 300px;
-    height: 100px;
-    margin: auto;
-  } */
 }
 
 @media only screen and (min-width: 601px) and (max-width: 1200px) {
@@ -32,10 +13,7 @@
   }
   #restaurants-list li {
     height: 100px;
-    margin: auto;
-    max-width: 27em;
     padding-bottom: 10em;
-    margin-bottom: 1em;
     background-color: #fff;
     border: 2px solid #ccc;
     font-family: Arial, sans-serif;

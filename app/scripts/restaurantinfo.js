@@ -1,25 +1,21 @@
 let restaurant;
-let newMap;
-
-/**
- * Initialize map as soon as the page is loaded.
- */
-document.addEventListener('DOMContentLoaded', (event) => {
-  initMap();
-});
+let map;
 
 window.initMap = () => {
-  fetchRestaurantFromURL((error, restaurant) => {
+  this.fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
     } else {
-      self.map = new google.maps.Map(document.getElementById('map'), {
+      self.map = new this.google.maps.Map(document.getElementById('map'), {
         zoom: 16,
         center: restaurant.latlng,
         scrollwheel: false,
+        // mapTypeId: 'hybrid',
       });
-      fillBreadcrumb();
+      this.fillBreadcrumb();
+      /* eslint-disable no-undef*/
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.map);
+      /* eslint-enable no-undef*/
     }
   });
 };
@@ -52,6 +48,7 @@ fetchRestaurantFromURL = (callback) => {
 /**
  * Create restaurant HTML and add it to the webpage
  */
+
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
@@ -77,6 +74,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
 /**
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
+
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
   for (let key in operatingHours) {
@@ -97,6 +95,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
+
 fillReviewsHTML = (reviews = self.restaurant.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
@@ -155,16 +154,16 @@ fillBreadcrumb = (restaurant = self.restaurant) => {
  */
 getParameterByName = (name, url) => {
   if (!url) {
-url = window.location.href;
-}
+    url = window.location.href;
+  }
   name = name.replace(/[\[\]]/g, '\\$&');
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
     results = regex.exec(url);
   if (!results) {
-return null;
-}
+    return null;
+  }
   if (!results[2]) {
-return '';
-}
+    return '';
+  }
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
