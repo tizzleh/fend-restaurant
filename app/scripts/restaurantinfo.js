@@ -52,16 +52,19 @@ fetchRestaurantFromURL = (callback) => {
 fillRestaurantHTML = (restaurant = self.restaurant) => {
   const name = document.getElementById('restaurant-name');
   name.innerHTML = restaurant.name;
+  name.tabIndex = '0';
 
   const address = document.getElementById('restaurant-address');
   address.innerHTML = restaurant.address;
-
   const image = document.getElementById('restaurant-img');
   image.className = 'restaurant-img';
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
-
+  image.srcset = DBHelper.imgUrlSrcSet(restaurant);
+  // image.sizes = `(max-width: 400px) 400px, (max-width: 600px) 600px,(max-width: 800px) 800px`;
+  image.alt = `Picture of ${restaurant.name}`;
   const cuisine = document.getElementById('restaurant-cuisine');
   cuisine.innerHTML = restaurant.cuisine_type;
+  cuisine.tabIndex = '0';
 
   // fill operating hours
   if (restaurant.operating_hours) {

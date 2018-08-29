@@ -44,6 +44,15 @@ article, aside, canvas, details, figcaption, figure, footer, header, hgroup, men
   display: block;
 }
 
+figure {
+  padding: 0;
+  margin: 0px;
+}
+
+.figcaption {
+  font-size: .4em;
+}
+
 #maincontent {
   background-color: #f3f3f3;
   min-height: 100%;
@@ -293,7 +302,7 @@ nav h1 a {
 }
 
 #reviews-container {
-  padding: 30px 40px 80px;
+  padding: 0px 15px 15px;
 }
 
 #reviews-container h2 {

@@ -138,6 +138,36 @@ class DBHelper {
     });
   }
 
+  static srcSet(restaurant) {
+
+  }
+
+  static imgUrlSrcSetRest(restaurant) {
+    let srcSize = '';
+    if (restaurant.photographs) {
+      for (let photograph of restaurant.photographs) {
+        srcSize = '(max-width: 600px) 200px, 50vw';
+      }
+    }
+    return (srcSize);
+  }
+
+  static imgUrlSrcSet(restaurant) {
+    let pic = restaurant.photograph.split('.')[0];
+    console.log(pic);
+    let srcWidth = `images/400-${pic}.jpg 400w, images/600-${pic}.jpg 600w, images/800-${pic}.jpg 800w`;
+    console.log(srcWidth);
+    return (decodeURI(srcWidth));
+  }
+
+  /**
+   * Add dynamic copyright to footer
+   */
+  // function copyRight() {
+  //   let date = new Date().getFullYear();
+  //   document.getElementById('year').innerHTML = date;
+  // }
+  // copyRight();
   /**
    * Restaurant page URL.
    */
@@ -149,9 +179,8 @@ class DBHelper {
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
-    return (`/images/${restaurant.photograph}`);
+    return (`images/800-${restaurant.photograph}`);
   }
-
   /**
    * Map marker for a restaurant.
    */
