@@ -170,21 +170,17 @@ createRestaurantHTML = (restaurant) => {
   image.src = DBHelper.imageUrlForRestaurant(restaurant);
   figCaption.className = 'figcaption';
   // image.sizes = `(max-width: 400px) 400px,`;
-  // image.sizes = `(max-width: 400px) 400px, (max-width: 600px) 600px,(max-width: 800px) 800px`;
+  // image.sizes = `(max-width: 400px) 400px,
+  // (max - width: 600 px) 600 px, (max - width: 800 px) 800 px `;
   image.srcset = DBHelper.imgUrlSrcSet(restaurant);
-  // image.media =
-  // let figcaption = `test`;
   image.alt = `Photo of ${restaurant.name}`;
   li.append(figure);
   figure.append(pic);
   figure.append(figCaption);
   figCaption.append(image.alt);
-  // figure.append(pic);
-  // pic.append(li);
-  source.media = 'test';
+  // source.media = 'test';
   pic.append(image);
   pic.append(source);
-  // li.append(image);
 
   const name = document.createElement('h1');
   name.innerHTML = restaurant.name;

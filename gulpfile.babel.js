@@ -31,7 +31,9 @@ import runSequence from 'run-sequence';
 import browserSync from 'browser-sync';
 import swPrecache from 'sw-precache';
 import gulpLoadPlugins from 'gulp-load-plugins';
-import {output as pagespeed} from 'psi';
+import {
+  output as pagespeed,
+} from 'psi';
 import pkg from './package.json';
 
 const $ = gulpLoadPlugins();
@@ -40,20 +42,22 @@ const reload = browserSync.reload;
 // Lint JavaScript
 gulp.task('lint', () =>
   gulp.src(['app/scripts/**/*.js', '!node_modules/**'])
-    .pipe($.eslint())
-    .pipe($.eslint.format())
-    .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
+  .pipe($.eslint())
+  .pipe($.eslint.format())
+  .pipe($.if(!browserSync.active, $.eslint.failAfterError()))
 );
 
 // Optimize images
 gulp.task('images', () =>
   gulp.src('app/images/**/*')
-    .pipe($.cache($.imagemin({
-      progressive: true,
-      interlaced: true,
-    })))
-    .pipe(gulp.dest('dist/images'))
-    .pipe($.size({title: 'images'}))
+  .pipe($.cache($.imagemin({
+    progressive: true,
+    interlaced: true,
+  })))
+  .pipe(gulp.dest('dist/images'))
+  .pipe($.size({
+    title: 'images',
+  }))
 );
 
 // Copy all files at the root level (app)
@@ -65,7 +69,9 @@ gulp.task('copy', () =>
   ], {
     dot: true,
   }).pipe(gulp.dest('dist'))
-    .pipe($.size({title: 'copy'}))
+  .pipe($.size({
+    title: 'copy',
+  }))
 );
 
 // Compile and automatically prefix stylesheets
@@ -84,9 +90,9 @@ gulp.task('styles', () => {
 
   // For best performance, don't add Sass partials to `gulp.src`
   return gulp.src([
-    'app/styles/**/*.scss',
-    'app/styles/**/*.css',
-  ])
+      'app/styles/**/*.scss',
+      'app/styles/**/*.css',
+    ])
     .pipe($.newer('.tmp/styles'))
     .pipe($.sourcemaps.init())
     .pipe($.sass({
@@ -96,35 +102,37 @@ gulp.task('styles', () => {
     .pipe(gulp.dest('.tmp/styles'))
     // Concatenate and minify styles
     .pipe($.if('*.css', $.cssnano()))
-    .pipe($.size({title: 'styles'}))
+    .pipe($.size({
+      title: 'styles',
+    }))
     .pipe($.sourcemaps.write('./'))
     .pipe(gulp.dest('dist/styles'))
     .pipe(gulp.dest('.tmp/styles'));
 });
 
 // Concatenate and minify JavaScript. Optionally transpiles ES2015 code to ES5.
-// to enable ES2015 support remove the line `"only": "gulpfile.babel.js",` in the
-// `.babelrc` file.
 gulp.task('scripts', () =>
-    gulp.src([
-      // Note: Since we are not using useref in the scripts build pipeline,
-      //       you need to explicitly list your scripts here in the right order
-      //       to be correctly concatenated
-      './app/scripts/main.js',
-      // Other scripts
-    ])
-      .pipe($.newer('.tmp/scripts'))
-      .pipe($.sourcemaps.init())
-      .pipe($.babel())
-      .pipe($.sourcemaps.write())
-      .pipe(gulp.dest('.tmp/scripts'))
-      .pipe($.concat('main.min.js'))
-      .pipe($.uglify({preserveComments: 'some'}))
-      // Output files
-      .pipe($.size({title: 'scripts'}))
-      .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('dist/scripts'))
-      .pipe(gulp.dest('.tmp/scripts'))
+  gulp.src([
+    // Note: Since we are not using useref in the scripts build pipeline,
+    //       you need to explicitly list your scripts here in the right order
+    //       to be correctly concatenated
+    './app/scripts/main.js',
+    // Other scripts
+  ])
+  .pipe($.newer('.tmp/scripts'))
+  .pipe($.sourcemaps.init())
+  .pipe($.babel())
+  .pipe($.sourcemaps.write())
+  .pipe(gulp.dest('.tmp/scripts'))
+  .pipe($.concat('main.min.js'))
+  // .pipe($.uglify({preserveComments: 'some'}))
+  // Output files
+  .pipe($.size({
+    title: 'scripts',
+  }))
+  .pipe($.sourcemaps.write('.'))
+  .pipe(gulp.dest('dist/scripts'))
+  .pipe(gulp.dest('.tmp/scripts'))
 );
 
 // Scan your HTML for assets & optimize them
@@ -148,12 +156,17 @@ gulp.task('html', () => {
       removeOptionalTags: true,
     })))
     // Output files
-    .pipe($.if('*.html', $.size({title: 'html', showFiles: true})))
+    .pipe($.if('*.html', $.size({
+      title: 'html',
+      showFiles: true,
+    })))
     .pipe(gulp.dest('dist'));
 });
 
 // Clean output directory
-gulp.task('clean', () => del(['.tmp', 'dist/*', '!dist/.git'], {dot: true}));
+gulp.task('clean', () => del(['.tmp', 'dist/*', '!dist/.git'], {
+  dot: true,
+}));
 
 // Watch files for changes & reload
 gulp.task('serve', ['scripts', 'styles'], () => {
@@ -196,8 +209,7 @@ gulp.task('serve:dist', ['default'], () =>
 // Build production files, the default task
 gulp.task('default', ['clean'], (cb) =>
   runSequence(
-    'styles',
-    ['lint', 'html', 'scripts', 'images', 'copy'],
+    'styles', ['lint', 'html', 'scripts', 'images', 'copy'],
     'generate-service-worker',
     cb
   )
@@ -214,11 +226,17 @@ gulp.task('pagespeed', (cb) =>
   }, cb)
 );
 
-// Copy over the scripts that are used in importScripts as part of the generate-service-worker task.
+/*
+ *Copy scripts re used in importScripts as part of generate-service-worker task.
+ */
+/* eslint-disable max-len */
 gulp.task('copy-sw-scripts', () => {
-  return gulp.src(['node_modules/sw-toolbox/sw-toolbox.js', 'app/scripts/sw/runtime-caching.js'])
+  return gulp.src([
+      'node_modules/sw-toolbox/sw-toolbox.js', 'app/scripts/sw/runtime-caching.js',
+    ])
     .pipe(gulp.dest('dist/scripts/sw'));
 });
+/* eslint-enable max-len */
 
 // See http://www.html5rocks.com/en/tutorials/service-worker/introduction/ for
 // an in-depth explanation of what service workers are and why you should care.
@@ -232,7 +250,7 @@ gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
   return swPrecache.write(filepath, {
     // Used to avoid cache conflicts when serving on localhost.
     cacheId: pkg.name || 'web-starter-kit',
-    // sw-toolbox.js needs to be listed first. It sets up methods used in runtime-caching.js.
+    // sw-toolbox.js needs to be listed first.
     importScripts: [
       'scripts/sw/sw-toolbox.js',
       'scripts/sw/runtime-caching.js',
@@ -251,6 +269,7 @@ gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
   });
 });
 
+/* eslint-disable eol-last */
 // Load custom tasks from the `tasks` directory
 // Run: `npm install --save-dev require-dir` from the command-line
 // try { require('require-dir')('tasks'); } catch (err) { console.error(err); }

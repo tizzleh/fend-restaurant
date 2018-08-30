@@ -1,6 +1,6 @@
-# FEND-Feed-Reader Project
+# FEND-restaurant
 
-This project is part of a Udacity course. The premise of the project was to incorporate testing suites in a project that I was handed from a previous developer.
+This project is part of a Udacity course. The task was to implement responsive design and offline first capabilities.
 
 ## Getting Started
 Visit the following link to view tests: [FEND Feed Reader](https://tizzleh.github.io/fend-feed-reader/)
