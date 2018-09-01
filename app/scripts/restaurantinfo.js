@@ -1,18 +1,18 @@
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-undef*/
 let restaurant;
 let map;
-/* eslint-enable no-unused-vars */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-invalid-this*/
 
 window.initMap = () => {
   this.fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
-      console.error(error);
     } else {
       self.map = new this.google.maps.Map(document.getElementById('map'), {
         zoom: 16,
         center: restaurant.latlng,
         scrollwheel: false,
-        // mapTypeId: 'hybrid',
       });
       this.fillBreadcrumb();
       /* eslint-disable no-undef*/
@@ -26,6 +26,7 @@ window.initMap = () => {
  * Get current restaurant from page URL.
  */
 
+/* eslint-disable no-undef*/
 fetchRestaurantFromURL = (callback) => {
   if (self.restaurant) { // restaurant already fetched!
     callback(null, self.restaurant);
@@ -39,7 +40,6 @@ fetchRestaurantFromURL = (callback) => {
     DBHelper.fetchRestaurantById(id, (error, restaurant) => {
       self.restaurant = restaurant;
       if (!restaurant) {
-        console.error(error);
         return;
       }
       fillRestaurantHTML();
@@ -81,6 +81,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
 
+/* eslint-disable eol-last */
+/* eslint-disable max-len */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
   const hours = document.getElementById('restaurant-hours');
   for (let key in operatingHours) {
@@ -100,6 +102,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
   }
 };
 
+/* eslint-enable max-len */
 /**
  * Create all reviews HTML and add them to the webpage.
  */
@@ -168,9 +171,10 @@ getParameterByName = (name, url) => {
     url = window.location.href;
   }
   name = name.replace(/[[\]]/g, '\\$&');
-
+  /* eslint-disable one-var*/
   const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`),
     results = regex.exec(url);
+  /* eslint-enable one-var*/
   if (!results) {
     return null;
   }
@@ -179,3 +183,4 @@ getParameterByName = (name, url) => {
   }
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 };
+/* eslint-disable eol-last */
