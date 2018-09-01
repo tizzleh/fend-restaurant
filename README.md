@@ -3,27 +3,36 @@
 This project is part of a Udacity course. The task was to implement responsive design and offline first capabilities.
 
 ## Getting Started
-Visit the following link to view tests: [FEND Feed Reader](https://tizzleh.github.io/fend-feed-reader/)
 
-Or, you can install the test locally by following the directions below
+In order to use this app you must install locally. Service Worker usually only works through HTTPS, serving through localhost is an exception to the rule.
 
 ### Installing
 
-Clone the repository to your local machine
+Step One: Clone the repository to your local machine.
 
 ```
-git clone https://github.com/tizzleh/fend-feed-reader.git
+git clone https://github.com/tizzleh/fend-restaurant.git
 ```
-Open the folder and visit index.html in your browser to view tests and feed.
+Step Two: 'cd' into the cloned directory.
+
+```
+cd fend-restaurant
+```
+Step Three: Install Gulp.
+
+```
+npm install gulp-cli -g
+npm install gulp -D
+```
+Step Four: Serve the project locally.
+
+```
+gulp serve
+```
 
 
-## Running the tests
-A gulpfile is included but not needed, simply visit index.html in your browser to run tests.
-
-
-## Built With
-* [jQuery](https://github.com/jquery/jquery) - Used to make life easier
-* [jasmine](https://github.com/jasmine/jasmine) - JavaScript testing library
+## Viewing the project.
+BrowserSync will open browser and you can interact with application.
 
 ## Contributing
 

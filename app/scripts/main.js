@@ -44,17 +44,16 @@
           // So check here to see if the page is already controlled,
           // i.e. whether there's an existing service worker.
           if (navigator.serviceWorker.controller) {
-            // The updatefound event implies that registration.installing is set:
             // https://slightlyoff.github.io/ServiceWorker/spec/service_worker/index.html#service-worker-container-updatefound-event
             let installingWorker = registration.installing;
 
             installingWorker.onstatechange = function() {
               switch (installingWorker.state) {
                 case 'installed':
-                  // At this point, the old content will have been purged and the
+                  // At this point, the old content will have been pu
                   // fresh content will have been added to the cache.
                   // It's the perfect time to display a "New content is
-                  // available; please refresh." message in the page's interface.
+                  // available; please refresh." message in the page's
                   break;
 
                 case 'redundant':
@@ -68,8 +67,9 @@
           }
         };
       }).catch(function(e) {
+        /* eslint-disable no-console */
         console.error('Error during service worker registration:', e);
       });
   }
-  console.log('hi from main.js');
 })();
+/* eslint-disable eol-last*/

@@ -7,7 +7,9 @@ const {
 } = workbox;
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.url.endsWith('.png', 'jpg', 'html', 'css', 'js', 'json')) {
+  if (event.request.url.endsWith(
+      '.png', 'html*', 'jpg', 'html',
+      'css', 'js', 'json')) {
     const cacheFirst = strategies.cacheFirst();
     event.respondWith(cacheFirst.makeRequest({
       request: event.request,

@@ -55,10 +55,9 @@ class DBHelper {
   }
 
   /**
-   * Adds two numbers together.
-   * @param {int} num1 The first number.
-   * @param {int} num2 The second number.
-   * @returns {int} The sum of the two numbers.
+   * Fetch restaurants by selected cuisine.
+   * @param {object} cuisine The first number.
+   * @param {event} callback The second number.
    */
   static fetchRestaurantByCuisine(cuisine, callback) {
     // Fetch all restaurants  with proper error handling
@@ -74,10 +73,9 @@ class DBHelper {
   }
 
   /**
-   * Adds two numbers together.
-   * @param {int} num1 The first number.
-   * @param {int} num2 The second number.
-   * @returns {int} The sum of the two numbers.
+   * Fetch restaurants by selected cuisine.
+   * @param {object} neighborhood The first number.
+   * @param {event} callback The second number.
    */
   static fetchRestaurantByNeighborhood(neighborhood, callback) {
     // Fetch all restaurants
@@ -86,16 +84,21 @@ class DBHelper {
         callback(error, null);
       } else {
         // Filter restaurants to have only given neighborhood
-        const results = restaurants.filter((r) => r.neighborhood == neighborhood);
+        const results = restaurants.filter(
+          (r) => r.neighborhood == neighborhood);
         callback(null, results);
       }
     });
   }
 
   /**
-   * Fetch restaurants by a cuisine and a neighborhood with proper error handling.
+   * Fetch restaurants by selected cuisine.
+   * @param {object} cuisine The first number.
+   * @param {object} neighborhood The first number.
+   * @param {event} callback The second number.
    */
-  static fetchRestaurantByCuisineAndNeighborhood(cuisine, neighborhood, callback) {
+  static fetchRestaurantByCuisineAndNeighborhood(
+    cuisine, neighborhood, callback) {
     // Fetch all restaurants
     DBHelper.fetchRestaurants((error, restaurants) => {
       if (error) {
@@ -114,7 +117,8 @@ class DBHelper {
   }
 
   /**
-   * Fetch all neighborhoods with proper error handling.
+   * Fetch restaurants by selected cuisine.
+   * @param {event} callback The second number.
    */
   static fetchNeighborhoods(callback) {
     // Fetch all restaurants
@@ -123,16 +127,19 @@ class DBHelper {
         callback(error, null);
       } else {
         // Get all neighborhoods from all restaurants
-        const neighborhoods = restaurants.map((v, i) => restaurants[i].neighborhood);
+        const neighborhoods = restaurants.map(
+          (v, i) => restaurants[i].neighborhood);
         // Remove duplicates from neighborhoods
-        const uniqueNeighborhoods = neighborhoods.filter((v, i) => neighborhoods.indexOf(v) == i);
+        const uniqueNeighborhoods = neighborhoods.filter(
+          (v, i) => neighborhoods.indexOf(v) == i);
         callback(null, uniqueNeighborhoods);
       }
     });
   }
 
   /**
-   * Fetch all cuisines with proper error handling.
+   * Fetch restaurants by selected cuisine.
+   * @param {event} callback The second number.
    */
   static fetchCuisines(callback) {
     // Fetch all restaurants
@@ -183,18 +190,18 @@ class DBHelper {
 
   /**
    * Adds two numbers together.
-   * @param {int} num1 The first number.
-   * @param {int} num2 The second number.
-   * @returns {int} The sum of the two numbers.
+   * @param {object}  restaurant The restaurant object.
+   * @return {int} The sum of the two numbers.
    */
   static imageUrlForRestaurant(restaurant) {
     return (`images/800-${restaurant.photograph}`);
   }
+
   /**
-   * Adds two numbers together.
-   * @param {int} num1 The first number.
-   * @param {int} num2 The second number.
-   * @returns {int} The sum of the two numbers.
+   * Adds markers to map.
+   * @param {object} restaurant The restaurant object.
+   * @param {object} map The google map object.
+   * @return {object} The marker object.
    */
   static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
@@ -207,3 +214,4 @@ class DBHelper {
     return marker;
   }
 }
+/* eslint-disable eol-last */
