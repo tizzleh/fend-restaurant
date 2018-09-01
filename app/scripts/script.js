@@ -118,16 +118,28 @@ function setMapOnAll(map) {
 }
 
 // Removes the markers from the map, but keeps them in the array.
+
+/**
+ * Adds markers to map.
+ * @param {array} map Markers of restaurants.
+ */
 function clearMarkers() {
   setMapOnAll(null);
 }
 
 // Shows any markers currently in the array.
+/**
+ * Adds markers to map.
+ * @param {array} map Markers of restaurants.
+ */
 function showMarkers() {
   setMapOnAll(map);
 }
 
-// Deletes all markers in the array by removing references to them.
+/**
+ * Deletes all markers in the array by removing references to them.
+ * @param {array} map Markers of restaurants.
+ */
 function deleteMarkers() {
   clearMarkers();
   self.markers = [];
@@ -142,7 +154,7 @@ resetRestaurants = (restaurants) => {
   const ul = document.getElementById('restaurants-list');
   ul.innerHTML = '';
   self.markers = [];
-  self.markers.forEach(m => m.setMap(null));
+  self.markers.forEach((m) => m.setMap(null));
   deleteMarkers();
   showMarkers();
   self.restaurants = restaurants;
@@ -151,6 +163,7 @@ resetRestaurants = (restaurants) => {
 /**
  * Create all restaurants HTML and add them to the webpage.
  */
+
 fillRestaurantsHTML = (restaurants = self.restaurants) => {
   const ul = document.getElementById('restaurants-list');
   restaurants.forEach((restaurant) => {
@@ -216,3 +229,5 @@ addMarkersToMap = (restaurants = self.restaurants) => {
     markers.push(marker);
   });
 };
+/* eslint-disable no-unused-vars*/
+/* eslint-disable eol-last*/

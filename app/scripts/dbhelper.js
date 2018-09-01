@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars*/
 /**
  * Common database helper functions.
  */
@@ -7,14 +8,16 @@ class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-    // const port = 8000; // Change this to your server port
     return `http://localhost:3000/data/restaurants.json`;
   }
 
+  /* eslint-enable no-unused-vars*/
   /**
-   * Fetch all restaurants.
+   * Adds two numbers together.
+   * @param {event} callback The first number.
    */
   static fetchRestaurants(callback) {
+    /* eslint-disable no-undef */
     let xhr = new XMLHttpRequest();
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
@@ -31,7 +34,9 @@ class DBHelper {
   }
 
   /**
-   * Fetch a restaurant by its ID.
+   * Adds two numbers together.
+   * @param {int} id The ID of the restaurant.
+   * @param {event} callback The second number.
    */
   static fetchRestaurantById(id, callback) {
     // fetch all restaurants with proper error handling.
@@ -50,7 +55,10 @@ class DBHelper {
   }
 
   /**
-   * Fetch restaurants by a cuisine type with proper error handling.
+   * Adds two numbers together.
+   * @param {int} num1 The first number.
+   * @param {int} num2 The second number.
+   * @returns {int} The sum of the two numbers.
    */
   static fetchRestaurantByCuisine(cuisine, callback) {
     // Fetch all restaurants  with proper error handling
@@ -66,7 +74,10 @@ class DBHelper {
   }
 
   /**
-   * Fetch restaurants by a neighborhood with proper error handling.
+   * Adds two numbers together.
+   * @param {int} num1 The first number.
+   * @param {int} num2 The second number.
+   * @returns {int} The sum of the two numbers.
    */
   static fetchRestaurantByNeighborhood(neighborhood, callback) {
     // Fetch all restaurants
@@ -130,33 +141,26 @@ class DBHelper {
         callback(error, null);
       } else {
         // Get all cuisines from all restaurants
-        const cuisines = restaurants.map((v, i) => restaurants[i].cuisine_type);
+        const cuisines = restaurants.map(
+          (v, i) => restaurants[i].cuisine_type);
         // Remove duplicates from cuisines
-        const uniqueCuisines = cuisines.filter((v, i) => cuisines.indexOf(v) == i);
+        const uniqueCuisines = cuisines.filter(
+          (v, i) => cuisines.indexOf(v) == i);
         callback(null, uniqueCuisines);
       }
     });
   }
-
-  static srcSet(restaurant) {
-
-  }
-
-  static imgUrlSrcSetRest(restaurant) {
-    let srcSize = '';
-    if (restaurant.photographs) {
-      for (let photograph of restaurant.photographs) {
-        srcSize = '(max-width: 600px) 200px, 50vw';
-      }
-    }
-    return (srcSize);
-  }
-
+  /**
+   * Adds two numbers together.
+   * @param {object} restaurant The restaurant object.
+   * @return {string} URLs of image with varying widths.
+   */
   static imgUrlSrcSet(restaurant) {
     let pic = restaurant.photograph.split('.')[0];
-    console.log(pic);
-    let srcWidth = `images/400-${pic}.jpg 400w, images/600-${pic}.jpg 600w, images/800-${pic}.jpg 800w`;
-    console.log(srcWidth);
+    let srcWidth =
+      `images/400-${pic}.jpg 400w,
+      images/600-${pic}.jpg 600w,
+      images/800-${pic}.jpg 800w`;
     return (decodeURI(srcWidth));
   }
 
@@ -169,22 +173,29 @@ class DBHelper {
   // }
   // copyRight();
   /**
-   * Restaurant page URL.
+   * Adds two numbers together.
+   * @param {object}  restaurant The restaurant object.
+   * @return {string} The url of restaurant.
    */
   static urlForRestaurant(restaurant) {
     return (`./restaurant.html?id=${restaurant.id}`);
   }
 
   /**
-   * Restaurant image URL.
+   * Adds two numbers together.
+   * @param {int} num1 The first number.
+   * @param {int} num2 The second number.
+   * @returns {int} The sum of the two numbers.
    */
   static imageUrlForRestaurant(restaurant) {
     return (`images/800-${restaurant.photograph}`);
   }
   /**
-   * Map marker for a restaurant.
+   * Adds two numbers together.
+   * @param {int} num1 The first number.
+   * @param {int} num2 The second number.
+   * @returns {int} The sum of the two numbers.
    */
-
   static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,
