@@ -13,7 +13,15 @@ let markers = [];
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchNeighborhoods();
   fetchCuisines();
+  focus();
 });
+
+/**
+ *  Set focus on neighborhood select.
+ */
+function focus() {
+  document.getElementById('neighborhoods-select').focus();
+}
 
 /**
  *  Fetch all neighborhoods and set their HTML.
