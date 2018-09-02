@@ -24,15 +24,22 @@ Step Three: Install Gulp.
 npm install gulp-cli -g
 npm install gulp -D
 ```
-Step Four: Serve the project locally.
+Step Four: Build project
+
+```
+gulp
+```
+Step Five: Run prject
 
 ```
 gulp serve
 ```
 
-
 ## Viewing the project.
-BrowserSync will open browser and you can interact with application.
+BrowserSync will open browser and you can interact with application. Or visit
+```
+http://localhost:3000/
+```
 
 ## Contributing
 

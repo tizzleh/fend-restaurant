@@ -13,7 +13,7 @@ class DBHelper {
 
   /* eslint-enable no-unused-vars*/
   /**
-   * Adds two numbers together.
+   * Fetch restaurants.
    * @param {event} callback The first number.
    */
   static fetchRestaurants(callback) {
