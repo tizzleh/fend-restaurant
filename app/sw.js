@@ -191,6 +191,46 @@ self.__precacheManifest = [{
     'revision': 'cb0d0ba94d882bd1cf6103ca5817ef6a',
   },
   {
+    'url': 'restaurant.html?id=1',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=2',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=3',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=4',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=5',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=6',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=7',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=8',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=9',
+    'revision': '',
+  },
+  {
+    'url': 'restaurant.html?id=10',
+    'revision': '',
+  },
+  {
     'url': 'robots.txt',
     'revision': '00733c197e59662cf705a2ec6d881d44',
   },
