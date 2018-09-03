@@ -17,13 +17,13 @@
 
   <!-- Add to homescreen for Chrome on Android -->
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="application-name" content="Web Starter Kit">
+  <meta name="application-name" content="Restaurant Reviews">
   <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
 
   <!-- Add to homescreen for Safari on iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="Web Starter Kit">
+  <meta name="apple-mobile-web-app-title" content="Restaurant Reviews">
   <link rel="apple-touch-icon" href="images/touch/apple-touch-icon.png">
 
   <!-- Tile icon for Win8 (144x144 + tile color) -->
@@ -32,40 +32,43 @@
 
   <!-- Color the status bar on mobile devices -->
   <meta name="theme-color" content="#2F3BA2">
-  <!-- <link rel="stylesheet" src="https://normalize-css.googlecode.com/svn/trunk/normalize.css" /> -->
+  <link rel="stylesheet" src="https://normalize-css.googlecode.com/svn/trunk/normalize.css" />
   <link rel="stylesheet" type="text/css" href="styles/styles.css">
   <link rel="stylesheet" type="text/css" href="styles/responsive.css">
 </head>
 <header>
   <!-- Beginning nav -->
-  <nav>
-    <h1><a href="/">Restaurant Reviews</a></h1>
-  </nav>
+<nav aria-label="breadcrumb">
+    <h1>
+      <a href="/" tabindex="0">Restaurant Reviews</a>
+    </h1>
   <!-- Beginning breadcrumb -->
   <ul id="breadcrumb">
     <li><a href="/">Home</a></li>
   </ul>
+</nav>
   <!-- End breadcrumb -->
   <!-- End nav -->
 </header>
 <!-- End header -->
 
 <!-- Beginning main -->
-<main id="maincontent">
   <!-- Beginning map -->
-  <section id="map-container">
-    <div id="map"></div>
-  </section>
+  <main id="maincontent">
+    <section id="map-container" aria-hidden="true" aria-labelledby="aria-map-description" role="application">
+      <div id="map" aria-hidden="true" aria-labelledby="aria-map-description" role="application"></div>
+      <label id="aria-map-description" class="aria-label">Google map of current restaurant</label>
+    </section>
   <!-- End map -->
   <!-- Beginning restaurant -->
   <section id="restaurant-container">
-    <h1 id="restaurant-name"></h1>
-<figure>
-  <picture>
-    <img id="restaurant-img">
-  </picture>
-  <figcaption id="detail-caption"></figcaption>
-</figure>
+    <h3 id="restaurant-name"></h3>
+    <figure>
+      <picture>
+        <img id="restaurant-img">
+      </picture>
+      <figcaption id="detail-caption"></figcaption>
+    </figure>
     <p id="restaurant-cuisine"></p>
     <p id="restaurant-address"></p>
     <table id="restaurant-hours"></table>
@@ -83,9 +86,18 @@
 <footer id="footer">
   Copyright (c) 2018 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
 </footer>
+<script>
+// Check that service workers are registered
+if ('serviceWorker' in navigator) {
+  // Use the window load event to keep the page load performant
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/sw.js');
+  });
+}
+</script>
 <script type="application/javascript" src="scripts/dbhelper.js"></script>
 <script type="application/javascript" src="scripts/restaurantinfo.js"></script>
-  <script type="application/javascript" src="scripts/main.js"></script>
+<script type="application/javascript" src="scripts/main.js"></script>
 <!-- Google Maps -->
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAdlFJbHfXSdxy03hESWwqCu5z5xzEfCTw&callback=initMap" type="text/javascript"></script>
 <!-- End scripts -->

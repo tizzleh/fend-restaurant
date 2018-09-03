@@ -36,7 +36,8 @@
     "psi": "^3.0.0",
     "run-sequence": "^2.2.0",
     "sw-precache": "^5.2.0",
-    "sw-toolbox": "^3.2.1"
+    "sw-toolbox": "^3.2.1",
+    "workbox-cli": "^3.4.1"
   },
   "engines": {
     "node": ">=0.12"
@@ -52,11 +53,14 @@
       "self": false,
       "DBHelper": false
     },
-    "extends": ["eslint:recommended", "google"],
+    "extends": [
+      "eslint:recommended",
+      "google"
+    ],
     "parser": "babel-eslint",
     "rules": {
-       "ignoreComments": true
-      }
+      "ignoreComments": true
+    }
   },
   "author": "Udacity / Ty Harlacker",
   "license": "ISC",
