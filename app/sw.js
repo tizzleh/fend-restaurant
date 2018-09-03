@@ -1,24 +1,24 @@
-/**
- * Welcome to your Workbox-powered service worker!
- *
- * You'll need to register this file in your web app and you should
- * disable HTTP caching for this file too.
- * See https://goo.gl/nhQhGp
- *
- * The rest of the code is auto-generated. Please don't update this file
- * directly; instead, make changes to your Workbox build configuration
- * and re-run your build process.
- * See https://goo.gl/2aRDsh
- */
+/*
+ Copyright 2016 Google Inc. All Rights Reserved.
+ Licensed under the Apache License, Version 2.0 (the "License");
+ you may not use this file except in compliance with the License.
+ You may obtain a copy of the License at
+     http://www.apache.org/licenses/LICENSE-2.0
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+*/
 
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.4.1/workbox-sw.js');
+// Names of the two caches used in this version of the service worker.
+// Change to v2, etc. when you update any of the local resources, which will
+// in turn trigger the install event again.
+const PRECACHE = 'precache-v1';
+const RUNTIME = 'runtime';
 
-/**
- * The workboxSW.precacheAndRoute() method efficiently caches and responds to
- * requests for URLs in the manifest.
- * See https://goo.gl/S9QRab
- */
-self.__precacheManifest = [{
+// A list of local resources we always want to be cached.
+const PRECACHE_URLS = [{
     'url': 'data/restaurants.json',
     'revision': '500a3defff288a163f63f80b48025716',
   },
@@ -176,7 +176,7 @@ self.__precacheManifest = [{
   },
   {
     'url': 'index.html',
-    'revision': 'bcada4604434fad0bc4c14e47a25fc8c',
+    'revision': '8f794262c53270b25b4d1019f6d87fdd',
   },
   {
     'url': 'manifest.json',
@@ -188,7 +188,7 @@ self.__precacheManifest = [{
   },
   {
     'url': 'restaurant.html',
-    'revision': 'cb0d0ba94d882bd1cf6103ca5817ef6a',
+    'revision': '74eb1586aeeaa0a73723001f325649ed',
   },
   {
     'url': 'restaurant.html?id=1',
@@ -231,6 +231,10 @@ self.__precacheManifest = [{
     'revision': '',
   },
   {
+    'url': 'https://maps.googleapis.com/maps/api/js/StaticMapService.GetMapImage?1m2&1i4940260&2i6307648&2e1&3u16&4m2&1u360&2u400&5m6&1e0&5sen-US&6sus&10b1&12b1&14i1301875&key=AIzaSyAdlFJbHfXSdxy03hESWwqCu5z5xzEfCTw&token=1554restaurant.html?id=10',
+    'revision': '',
+  },
+  {
     'url': 'robots.txt',
     'revision': '00733c197e59662cf705a2ec6d881d44',
   },
@@ -240,7 +244,7 @@ self.__precacheManifest = [{
   },
   {
     'url': 'scripts/main.js',
-    'revision': 'd93b53c756681a3877049ddfe1f124a5',
+    'revision': '0c96ecbf2bb115ecb80391b74b62ed55',
   },
   {
     'url': 'scripts/restaurantinfo.js',
@@ -255,10 +259,6 @@ self.__precacheManifest = [{
     'revision': 'ae67e46f5185a474b94c3c604203e5cc',
   },
   {
-    'url': 'sw.js',
-    'revision': '5c4a014803c8a478aeff3990700e5b5f',
-  },
-  {
     'url': 'styles/main.css',
     'revision': 'dc3ac2775b89ab3eaacaa4d19441753b',
   },
@@ -270,6 +270,52 @@ self.__precacheManifest = [{
     'url': 'styles/styles.css',
     'revision': '6de54a4ca4b548253f7092de6bad52c3',
   },
-].concat(self.__precacheManifest || []);
-workbox.precaching.suppressWarnings();
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+];
+
+// The install handler takes care of precaching the resources we always need.
+self.addEventListener('install', (event) => {
+  event.waitUntil(
+    caches.open(PRECACHE)
+    .then(cache => cache.addAll(PRECACHE_URLS))
+    .then(self.skipWaiting())
+  );
+});
+
+// The activate handler takes care of cleaning up old caches.
+self.addEventListener('activate', (event) => {
+  const currentCaches = [PRECACHE, RUNTIME];
+  event.waitUntil(
+    caches.keys().then(cacheNames => {
+      return cacheNames.filter(cacheName => !currentCaches.includes(cacheName));
+    }).then(cachesToDelete => {
+      return Promise.all(cachesToDelete.map(cacheToDelete => {
+        return caches.delete(cacheToDelete);
+      }));
+    }).then(() => self.clients.claim())
+  );
+});
+
+// The fetch handler serves responses for same-origin resources from a cache.
+// If no response is found, it populates the runtime cache with the response
+// from the network before returning it to the page.
+self.addEventListener('fetch', event => {
+  // Skip cross-origin requests, like those for Google Analytics.
+  if (event.request.url.startsWith(self.location.origin)) {
+    event.respondWith(
+      caches.match(event.request).then(cachedResponse => {
+        if (cachedResponse) {
+          return cachedResponse;
+        }
+
+        return caches.open(RUNTIME).then(cache => {
+          return fetch(event.request).then(response => {
+            // Put a copy of the response in the runtime cache.
+            return cache.put(event.request, response.clone()).then(() => {
+              return response;
+            });
+          });
+        });
+      })
+    );
+  }
+});
