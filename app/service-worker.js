@@ -1,8 +1,9 @@
 self.addEventListener('install', function(event) {
   event.waitUntil(
-    caches.open('restaurant-review-v1.1')
+    caches.open('restaurant-review-v1.2')
     .then(function(response) {
       response.addAll([
+        '/',
         'images/400-1.jpg',
         'images/400-10.jpg',
         'images/400-2.jpg',
@@ -57,7 +58,6 @@ self.addEventListener('install', function(event) {
         'scripts/main.js',
         'scripts/restaurantinfo.js',
         'scripts/script.js',
-        'scripts/service-worker.js',
         'scripts/sw/runtime-caching.js',
         'styles/main.css',
         'styles/responsive.css',
