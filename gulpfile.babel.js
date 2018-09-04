@@ -244,7 +244,7 @@ gulp.task('copy-sw-scripts', () => {
 // local resources. This should only be done for the 'dist' directory, to allow
 // live reload to work as expected when serving from the 'app' directory.
 gulp.task('generate-service-worker', ['copy-sw-scripts'], () => {
-  const rootDir = 'dist';
+  const rootDir = 'app';
   const filepath = path.join(rootDir, 'service-worker.js');
 
   return swPrecache.write(filepath, {
