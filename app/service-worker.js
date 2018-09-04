@@ -37,14 +37,13 @@
 /* eslint-disable indent, no-unused-vars, no-multiple-empty-lines, max-nested-callbacks, space-before-function-paren, quotes, comma-spacing */
 'use strict';
 
-var precacheConfig = [
+let precacheConfig = [
   ["images/400-1.jpg", "6217a46e5132f2be6079d5de8de40bce"],
   ["images/400-10.jpg", "b10d8a6d0d8e208f993032ad63384a29"],
   ["images/400-2.jpg", "40c80ed605c341deac17d759d4657c79"],
   ["images/400-3.jpg", "33b52b522f4b7fbc4d9f5ba06f842c97"],
   ["images/400-4.jpg", "e15cfaf2773c04697a38a27a64b593e4"],
   ["images/400-5.jpg", "e5ef5db6fcc4d18202db26e27757a46f"],
-  ["https://maps.googleapis.com/maps/api/js/ViewportInfoService.GetViewportInfo?1m6&1m2&1d40.673675794147115&2d-74.00030237537828&2m2&1d40.69385284283603&2d-73.93261163138965&2u16&4sen-US&5e0&6sm%40434000000&7b0&8e0&callback=_xdc_._9r6kml&key=AIzaSyAdlFJbHfXSdxy03hESWwqCu5z5xzEfCTw&token=219", ""],
   ["images/400-6.jpg", "bf473e3b55e34aac9fc4bd52fe54398e"],
   ["images/400-7.jpg", "9c4659aad88d22e7f34a5fb31033ea02"],
   ["images/400-8.jpg", "eddfa8f3f505e502c238032c87287e2d"],
@@ -96,24 +95,24 @@ var precacheConfig = [
   ["scripts/sw/runtime-caching.js", "ae67e46f5185a474b94c3c604203e5cc"],
   ["styles/main.css", "dc3ac2775b89ab3eaacaa4d19441753b"],
   ["styles/responsive.css", "0d8d9119dfcdf686b17c1db82e1a54b4"],
-  ["styles/styles.css", "6de54a4ca4b548253f7092de6bad52c3"]
+  ["styles/styles.css", "6de54a4ca4b548253f7092de6bad52c3"],
 ];
-var cacheName = 'sw-precache-v3-fend-restaurant-' + (self.registration ? self.registration.scope : '');
+let cacheName = 'sw-precache-v3-fend-restaurant-' + (self.registration ? self.registration.scope : '');
 
 
-var ignoreUrlParametersMatching = [/^utm_/];
+let ignoreUrlParametersMatching = [/^utm_/];
 
 
 
-var addDirectoryIndex = function(originalUrl, index) {
-  var url = new URL(originalUrl);
+let addDirectoryIndex = function(originalUrl, index) {
+  let url = new URL(originalUrl);
   if (url.pathname.slice(-1) === '/') {
     url.pathname += index;
   }
   return url.toString();
 };
 
-var cleanResponse = function(originalResponse) {
+let cleanResponse = function(originalResponse) {
   // If this is not a redirected response, then we don't have to do anything.
   if (!originalResponse.redirected) {
     return Promise.resolve(originalResponse);
@@ -121,7 +120,7 @@ var cleanResponse = function(originalResponse) {
 
   // Firefox 50 and below doesn't support the Response.body stream, so we may
   // need to read the entire body to memory as a Blob.
-  var bodyPromise = 'body' in originalResponse ?
+  let bodyPromise = 'body' in originalResponse ?
     Promise.resolve(originalResponse.body) :
     originalResponse.blob();
 
@@ -130,15 +129,15 @@ var cleanResponse = function(originalResponse) {
     return new Response(body, {
       headers: originalResponse.headers,
       status: originalResponse.status,
-      statusText: originalResponse.statusText
+      statusText: originalResponse.statusText,
     });
   });
 };
 
-var createCacheKey = function(originalUrl, paramName, paramValue,
+let createCacheKey = function(originalUrl, paramName, paramValue,
   dontCacheBustUrlsMatching) {
   // Create a new URL object to avoid modifying originalUrl.
-  var url = new URL(originalUrl);
+  let url = new URL(originalUrl);
 
   // If dontCacheBustUrlsMatching is not set, or if we don't have a match,
   // then add in the extra cache-busting URL parameter.
@@ -151,22 +150,22 @@ var createCacheKey = function(originalUrl, paramName, paramValue,
   return url.toString();
 };
 
-var isPathWhitelisted = function(whitelist, absoluteUrlString) {
+let isPathWhitelisted = function(whitelist, absoluteUrlString) {
   // If the whitelist is empty, then consider all URLs to be whitelisted.
   if (whitelist.length === 0) {
     return true;
   }
 
   // Otherwise compare each path regex to the path of the URL passed in.
-  var path = (new URL(absoluteUrlString)).pathname;
+  let path = (new URL(absoluteUrlString)).pathname;
   return whitelist.some(function(whitelistedPathRegex) {
     return path.match(whitelistedPathRegex);
   });
 };
 
-var stripIgnoredUrlParameters = function(originalUrl,
+let stripIgnoredUrlParameters = function(originalUrl,
   ignoreUrlParametersMatching) {
-  var url = new URL(originalUrl);
+  let url = new URL(originalUrl);
   // Remove the hash; see https://github.com/GoogleChrome/sw-precache/issues/290
   url.hash = '';
 
@@ -189,13 +188,13 @@ var stripIgnoredUrlParameters = function(originalUrl,
 };
 
 
-var hashParamName = '_sw-precache';
-var urlsToCacheKeys = new Map(
+let hashParamName = '_sw-precache';
+let urlsToCacheKeys = new Map(
   precacheConfig.map(function(item) {
-    var relativeUrl = item[0];
-    var hash = item[1];
-    var absoluteUrl = new URL(relativeUrl, self.location);
-    var cacheKey = createCacheKey(absoluteUrl, hashParamName, hash, false);
+    let relativeUrl = item[0];
+    let hash = item[1];
+    let absoluteUrl = new URL(relativeUrl, self.location);
+    let cacheKey = createCacheKey(absoluteUrl, hashParamName, hash, false);
     return [absoluteUrl.toString(), cacheKey];
   })
 );
@@ -218,8 +217,8 @@ self.addEventListener('install', function(event) {
           Array.from(urlsToCacheKeys.values()).map(function(cacheKey) {
             // If we don't have a key matching url in the cache already, add it.
             if (!cachedUrls.has(cacheKey)) {
-              var request = new Request(cacheKey, {
-                credentials: 'same-origin'
+              let request = new Request(cacheKey, {
+                credentials: 'same-origin',
               });
               return fetch(request).then(function(response) {
                 // Bail out of installation unless we get back a 200 OK for
@@ -238,16 +237,14 @@ self.addEventListener('install', function(event) {
         );
       });
     }).then(function() {
-
       // Force the SW to transition from installing -> active state
       return self.skipWaiting();
-
     })
   );
 });
 
 self.addEventListener('activate', function(event) {
-  var setOfExpectedUrls = new Set(urlsToCacheKeys.values());
+  let setOfExpectedUrls = new Set(urlsToCacheKeys.values());
 
   event.waitUntil(
     caches.open(cacheName).then(function(cache) {
@@ -261,9 +258,7 @@ self.addEventListener('activate', function(event) {
         );
       });
     }).then(function() {
-
       return self.clients.claim();
-
     })
   );
 });
@@ -274,16 +269,16 @@ self.addEventListener('fetch', function(event) {
     // Should we call event.respondWith() inside this fetch event handler?
     // This needs to be determined synchronously, which will give other fetch
     // handlers a chance to handle the request if need be.
-    var shouldRespond;
+    let shouldRespond;
 
     // First, remove all the ignored parameters and hash fragment, and see if we
     // have that URL in our cache. If so, great! shouldRespond will be true.
-    var url = stripIgnoredUrlParameters(event.request.url, ignoreUrlParametersMatching);
+    let url = stripIgnoredUrlParameters(event.request.url, ignoreUrlParametersMatching);
     shouldRespond = urlsToCacheKeys.has(url);
 
     // If shouldRespond is false, check again, this time with 'index.html'
     // (or whatever the directoryIndex option is set to) at the end.
-    var directoryIndex = 'index.html';
+    let directoryIndex = 'index.html';
     if (!shouldRespond && directoryIndex) {
       url = addDirectoryIndex(url, directoryIndex);
       shouldRespond = urlsToCacheKeys.has(url);
@@ -291,7 +286,7 @@ self.addEventListener('fetch', function(event) {
 
     // If shouldRespond is still false, check to see if this is a navigation
     // request, and if so, whether the URL matches navigateFallbackWhitelist.
-    var navigateFallback = '';
+    let navigateFallback = '';
     if (!shouldRespond &&
       navigateFallback &&
       (event.request.mode === 'navigate') &&
