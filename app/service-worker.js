@@ -62,6 +62,7 @@ self.addEventListener('install', function(event) {
         'styles/main.css',
         'styles/responsive.css',
         'styles/styles.css',
+        'service-worker.js',
       ]);
     })
   );
