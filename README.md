@@ -6,6 +6,8 @@ This project is part of a Udacity course. The task was to implement responsive d
 
 In order to use this app you must install locally. Service Worker usually only works through HTTPS, serving through localhost is an exception to the rule.
 
+The service-worker is not precaching any resources, you must visit each page first in order for it to be cached. Please give your browser sufficient time to download and cache the resources before trying to test the service worker.
+
 ### Installing
 
 Step One: Clone the repository to your local machine.
@@ -29,10 +31,10 @@ Step Four: Build project
 ```
 gulp
 ```
-Step Five: Run prject
+Step Five: Run project
 
 ```
-gulp serve
+gulp clean && gulp serve:dist
 ```
 
 ## Viewing the project.
